@@ -1,0 +1,112 @@
+[
+  {
+    "name": "食戟之靈 豪之皿",
+    "type": "料理美食",
+    "ep": 13,
+    "view": 28000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/84/0000109284.JPG",
+    "view_avg": 2153.85,
+    "year": 2020,
+    "month": 4
+  },
+  {
+    "name": "食戟之靈 神之皿",
+    "type": "料理美食",
+    "ep": 12,
+    "view": 22000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/77/0000106077.JPG",
+    "view_avg": 1833.33,
+    "year": 2019,
+    "month": 10
+  },
+  {
+    "name": "食戟之靈 餐之皿",
+    "type": "料理美食",
+    "ep": 12,
+    "view": 19000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/32/0000089732.JPG",
+    "view_avg": 1583.33,
+    "year": 2017,
+    "month": 10
+  },
+  {
+    "name": "食戟之靈 餐之皿 遠月列車篇",
+    "type": "料理美食",
+    "ep": 12,
+    "view": 18000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/33/0000093033.JPG",
+    "view_avg": 1500,
+    "year": 2018,
+    "month": 4
+  },
+  {
+    "name": "異世界食堂",
+    "type": "料理美食",
+    "ep": 12,
+    "view": 16000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/35/0000085035.JPG",
+    "view_avg": 1333.33,
+    "year": 2017,
+    "month": 7
+  },
+  {
+    "name": "烘焙王",
+    "type": "料理美食",
+    "ep": 69,
+    "view": 59000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/02/0000000102.JPG",
+    "view_avg": 855.07,
+    "year": 2004,
+    "month": 10
+  },
+  {
+    "name": "廚神小當家 第二季",
+    "type": "料理美食",
+    "ep": 12,
+    "view": 8807,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/39/0000115139.JPG",
+    "view_avg": 733.92,
+    "year": 2021,
+    "month": 1
+  },
+  {
+    "name": "品酒要在成為夫妻後",
+    "type": "料理美食",
+    "ep": 13,
+    "view": 7487,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/07/0000088707.JPG",
+    "view_avg": 575.92,
+    "year": 2017,
+    "month": 10
+  },
+  {
+    "name": "廚神小當家",
+    "type": "料理美食",
+    "ep": 12,
+    "view": 5685,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/53/0000105253.JPG",
+    "view_avg": 473.75,
+    "year": 2019,
+    "month": 10
+  },
+  {
+    "name": "幸腹塗鴉",
+    "type": "料理美食",
+    "ep": 12,
+    "view": 1590,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/26/0000070926.JPG",
+    "view_avg": 132.5,
+    "year": 2015,
+    "month": 1
+  },
+  {
+    "name": "舌尖上的義大利",
+    "type": "料理美食",
+    "ep": 12,
+    "view": 1151,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/39/0000083939.JPG",
+    "view_avg": 95.92,
+    "year": 2017,
+    "month": 1
+  }
+]

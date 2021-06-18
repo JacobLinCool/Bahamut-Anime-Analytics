@@ -1,0 +1,532 @@
+[
+  {
+    "name": "文豪野犬",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 76000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/12/0000079112.JPG",
+    "view_avg": 6333.33,
+    "year": 2016,
+    "month": 4
+  },
+  {
+    "name": "夏目友人帳",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 57000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/76/0000016376.JPG",
+    "view_avg": 4384.62,
+    "year": 2008,
+    "month": 7
+  },
+  {
+    "name": "文豪野犬 第二季",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 54000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/71/0000082471.JPG",
+    "view_avg": 4153.85,
+    "year": 2016,
+    "month": 10
+  },
+  {
+    "name": "境界的彼方",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 27000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/95/0000061095.JPG",
+    "view_avg": 2250,
+    "year": 2013,
+    "month": 10
+  },
+  {
+    "name": "地縛少年花子君",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 27000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/23/0000104523.JPG",
+    "view_avg": 2250,
+    "year": 2020,
+    "month": 1
+  },
+  {
+    "name": "劇場版 境界的彼方 未來篇",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 2165,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/21/0000074321.JPG",
+    "view_avg": 2165,
+    "year": 2015,
+    "month": 4
+  },
+  {
+    "name": "不愉快的妖怪庵",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 27000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/32/0000081932.JPG",
+    "view_avg": 2076.92,
+    "year": 2016,
+    "month": 6
+  },
+  {
+    "name": "甲鐵城的卡巴內里",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 23000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/97/0000074297.JPG",
+    "view_avg": 1916.67,
+    "year": 2016,
+    "month": 4
+  },
+  {
+    "name": "流浪神差",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 21000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/59/0000063959.JPG",
+    "view_avg": 1750,
+    "year": 2014,
+    "month": 1
+  },
+  {
+    "name": "傷物語 I 鐵血篇",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 1602,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/43/0000038943.JPG",
+    "view_avg": 1602,
+    "year": 2016,
+    "month": 1
+  },
+  {
+    "name": "怪病醫拉姆尼",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 18000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/42/0000114242.JPG",
+    "view_avg": 1500,
+    "year": 2021,
+    "month": 1
+  },
+  {
+    "name": "流浪神差 ARAGOTO",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 19000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/84/0000076284.JPG",
+    "view_avg": 1461.54,
+    "year": 2015,
+    "month": 10
+  },
+  {
+    "name": "劇場版 境界的彼方 過去篇",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 1382,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/38/0000071238.JPG",
+    "view_avg": 1382,
+    "year": 2015,
+    "month": 3
+  },
+  {
+    "name": "青之驅魔師",
+    "type": "靈異神怪",
+    "ep": 25,
+    "view": 34000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/86/0000041986.JPG",
+    "view_avg": 1360,
+    "year": 2011,
+    "month": 4
+  },
+  {
+    "name": "不愉快的妖怪庵 續",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 17000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/46/0000098946.JPG",
+    "view_avg": 1307.69,
+    "year": 2019,
+    "month": 1
+  },
+  {
+    "name": "路人超能 100 第二季",
+    "type": "靈異神怪",
+    "ep": 14,
+    "view": 17000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/65/0000095465.JPG",
+    "view_avg": 1214.29,
+    "year": 2019,
+    "month": 1
+  },
+  {
+    "name": "劇場版 夏目友人帳～緣結空蟬～",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 1188,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/74/0000091974.PNG",
+    "view_avg": 1188,
+    "year": 2018,
+    "month": 9
+  },
+  {
+    "name": "血戰-C：The Last Dark",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 1177,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/42/0000045942.JPG",
+    "view_avg": 1177,
+    "year": 2012,
+    "month": 6
+  },
+  {
+    "name": "路人超能 100",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 14000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/67/0000080767.JPG",
+    "view_avg": 1166.67,
+    "year": 2016,
+    "month": 7
+  },
+  {
+    "name": "傷物語 III 冷血篇",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 1160,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/87/0000084787.JPG",
+    "view_avg": 1160,
+    "year": 2017,
+    "month": 1
+  },
+  {
+    "name": "夏目友人帳 伍",
+    "type": "靈異神怪",
+    "ep": 14,
+    "view": 16000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/96/0000082696.JPG",
+    "view_avg": 1142.86,
+    "year": 2016,
+    "month": 10
+  },
+  {
+    "name": "路人超能100 REIGEN ～不為人知的奇蹟靈能力者～",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 1121,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/78/0000096378.JPG",
+    "view_avg": 1121,
+    "year": 2018,
+    "month": 3
+  },
+  {
+    "name": "青之驅魔師 京都不淨王篇",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 13000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/16/0000084116.JPG",
+    "view_avg": 1083.33,
+    "year": 2017,
+    "month": 1
+  },
+  {
+    "name": "傷物語 II 熱血篇",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 1012,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/86/0000084786.JPG",
+    "view_avg": 1012,
+    "year": 2016,
+    "month": 8
+  },
+  {
+    "name": "夏目友人帳 陸",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 13000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/51/0000086651.JPG",
+    "view_avg": 1000,
+    "year": 2017,
+    "month": 4
+  },
+  {
+    "name": "裏世界遠足",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 12000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/61/0000110261.JPG",
+    "view_avg": 1000,
+    "year": 2021,
+    "month": 1
+  },
+  {
+    "name": "鬼燈的冷徹",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 9649,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/07/0000062707.JPG",
+    "view_avg": 742.23,
+    "year": 2014,
+    "month": 1
+  },
+  {
+    "name": "雙星之陰陽師",
+    "type": "靈異神怪",
+    "ep": 50,
+    "view": 31000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/33/0000080633.JPG",
+    "view_avg": 620,
+    "year": 2016,
+    "month": 4
+  },
+  {
+    "name": "妖怪旅館營業中",
+    "type": "靈異神怪",
+    "ep": 26,
+    "view": 16000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/12/0000092412.JPG",
+    "view_avg": 615.38,
+    "year": 2018,
+    "month": 4
+  },
+  {
+    "name": "伊藤潤二驚選集",
+    "type": "靈異神怪",
+    "ep": 14,
+    "view": 7616,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/24/0000092024.JPG",
+    "view_avg": 544,
+    "year": 2018,
+    "month": 1
+  },
+  {
+    "name": "闇芝居",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 6606,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/53/0000064453.JPG",
+    "view_avg": 508.15,
+    "year": 2013,
+    "month": 7
+  },
+  {
+    "name": "終物語 第二季",
+    "type": "靈異神怪",
+    "ep": 3,
+    "view": 1410,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/85/0000088685.JPG",
+    "view_avg": 470,
+    "year": 2017,
+    "month": 8
+  },
+  {
+    "name": "鬼燈的冷徹 第二季",
+    "type": "靈異神怪",
+    "ep": 26,
+    "view": 12000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/91/0000087891.JPG",
+    "view_avg": 461.54,
+    "year": 2017,
+    "month": 10
+  },
+  {
+    "name": "蟲師 續章",
+    "type": "靈異神怪",
+    "ep": 21,
+    "view": 9379,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/18/0000066718.JPG",
+    "view_avg": 446.62,
+    "year": 2014,
+    "month": 4
+  },
+  {
+    "name": "續·終物語",
+    "type": "靈異神怪",
+    "ep": 6,
+    "view": 2107,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/81/0000093181.JPG",
+    "view_avg": 351.17,
+    "year": 2018,
+    "month": 11
+  },
+  {
+    "name": "終物語",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 4211,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/87/0000078087.JPG",
+    "view_avg": 350.92,
+    "year": 2015,
+    "month": 10
+  },
+  {
+    "name": "地獄少女",
+    "type": "靈異神怪",
+    "ep": 26,
+    "view": 8654,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/93/0000000193.JPG",
+    "view_avg": 332.85,
+    "year": 2005,
+    "month": 10
+  },
+  {
+    "name": "闇芝居 第八季",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 3893,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/42/0000115142.JPG",
+    "view_avg": 299.46,
+    "year": 2021,
+    "month": 1
+  },
+  {
+    "name": "潮與虎",
+    "type": "靈異神怪",
+    "ep": 39,
+    "view": 9262,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/14/0000075414.JPG",
+    "view_avg": 237.49,
+    "year": 2015,
+    "month": 7
+  },
+  {
+    "name": "闇芝居 第二季",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 2688,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/02/0000067602.JPG",
+    "view_avg": 206.77,
+    "year": 2014,
+    "month": 7
+  },
+  {
+    "name": "花田少年史",
+    "type": "靈異神怪",
+    "ep": 25,
+    "view": 4534,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/79/0000000379.JPG",
+    "view_avg": 181.36,
+    "year": 2002,
+    "month": 10
+  },
+  {
+    "name": "地獄少女 二籠",
+    "type": "靈異神怪",
+    "ep": 26,
+    "view": 4529,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/53/0000000653.JPG",
+    "view_avg": 174.19,
+    "year": 2006,
+    "month": 10
+  },
+  {
+    "name": "闇芝居 第三季",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 2000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/58/0000080358.JPG",
+    "view_avg": 153.85,
+    "year": 2016,
+    "month": 1
+  },
+  {
+    "name": "妖怪人類貝姆（BEM）",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 1767,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/47/0000103847.JPG",
+    "view_avg": 147.25,
+    "year": 2019,
+    "month": 7
+  },
+  {
+    "name": "地獄少女 三鼎",
+    "type": "靈異神怪",
+    "ep": 26,
+    "view": 3529,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/86/0000016186.JPG",
+    "view_avg": 135.73,
+    "year": 2008,
+    "month": 10
+  },
+  {
+    "name": "闇芝居 第五季",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 1635,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/46/0000089346.JPG",
+    "view_avg": 125.77,
+    "year": 2017,
+    "month": 7
+  },
+  {
+    "name": "付喪神出租中！",
+    "type": "靈異神怪",
+    "ep": 12,
+    "view": 1460,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/27/0000095427.JPG",
+    "view_avg": 121.67,
+    "year": 2018,
+    "month": 7
+  },
+  {
+    "name": "闇芝居 第六季",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 1461,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/90/0000100090.JPG",
+    "view_avg": 112.38,
+    "year": 2018,
+    "month": 7
+  },
+  {
+    "name": "闇芝居 第四季",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 1389,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/71/0000086871.JPG",
+    "view_avg": 106.85,
+    "year": 2017,
+    "month": 1
+  },
+  {
+    "name": "闇芝居 第七季",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 1333,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/71/0000108071.JPG",
+    "view_avg": 102.54,
+    "year": 2019,
+    "month": 7
+  },
+  {
+    "name": "忍者收藏",
+    "type": "靈異神怪",
+    "ep": 13,
+    "view": 1067,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/09/0000112409.JPG",
+    "view_avg": 82.08,
+    "year": 2020,
+    "month": 7
+  },
+  {
+    "name": "小妖怪",
+    "type": "靈異神怪",
+    "ep": 39,
+    "view": 0,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/05/0000112205.JPG",
+    "view_avg": 0,
+    "year": 2020,
+    "month": 7
+  },
+  {
+    "name": "BEM 妖怪人類貝姆劇場版～BECOME HUMAN～",
+    "type": "靈異神怪",
+    "ep": 1,
+    "view": 0,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/07/0000113707.JPG",
+    "view_avg": 0,
+    "year": 2020,
+    "month": 10
+  }
+]
