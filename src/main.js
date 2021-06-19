@@ -3,11 +3,19 @@ import { JSDOM } from "jsdom";
 import fs from "fs";
 import { gen_data } from "./data.js";
 
+const DIR = "./dist/";
+
 async function main() {
-    if (!fs.existsSync("./dist/")) fs.mkdirSync("./dist/");
+    check_dir();
 
     await full_time_analytics();
     await monthly_analytics();
+}
+
+function check_dir() {
+    // Dist Root
+    if (!fs.existsSync(DIR)) fs.mkdirSync(DIR);
+    if (!fs.existsSync(`${DIR}`)) fs.mkdirSync(`${DIR}`);
 }
 
 async function full_time_analytics() {
