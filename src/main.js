@@ -82,11 +82,16 @@ async function full_time_details(list) {
         while (has_next_episode) {
             let raw = await fetch(`https://ani.gamer.com.tw/${sn == list[i].sn ? "animeRef" : "animeVideo"}.php?sn=${sn}`).then((r) => r.text());
             let dom = new JSDOM(raw);
-            let current_ep = dom.window.document.querySelector("li.playing");
-            if (!current_ep.nextSibling) has_next_episode = false;
-            else sn = number_normalize(current_ep.nextSibling.querySelector("a").href);
             let view = number_normalize(dom.window.document.querySelector(".newanime-count > span").innerHTML);
-            episode[current_ep.querySelector("a").innerHTML.trim()] = view;
+            let current_ep = dom.window.document.querySelector("li.playing");
+            if (!current_ep) {
+                has_next_episode = false;
+                episode["電影"] = view;
+            } else {
+                if (!current_ep.nextSibling) has_next_episode = false;
+                else sn = number_normalize(current_ep.nextSibling.querySelector("a").href);
+                episode[current_ep.querySelector("a").innerHTML.trim()] = view;
+            }
         }
         result[name] = episode;
     }
