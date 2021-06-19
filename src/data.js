@@ -8,6 +8,7 @@ function gen_data(document) {
             view: number_normalize(x.querySelector(".show-view-number > p").innerHTML),
             image: x.querySelector(".theme-img").src,
             time: [...x.querySelector(".theme-time").innerHTML.matchAll(/\d{4}\/\d{2}/g)][0][0],
+            sn: [...x.href.matchAll(/\d{1,6}/g)][0][0],
         };
     });
 
@@ -30,4 +31,4 @@ function number_normalize(n) {
     return 0;
 }
 
-export { gen_data };
+export { gen_data, number_normalize };
