@@ -770,17 +770,6 @@
     "month": 7
   },
   {
-    "name": "Vivy -Fluorite Eye's Song-",
-    "type": "其他",
-    "ep": 12,
-    "view": 2423000,
-    "image": "https://p2.bahamut.com.tw/B/ACG/c/69/0000115369.JPG",
-    "sn": "112657",
-    "view_avg": 201916.67,
-    "year": 2021,
-    "month": 4
-  },
-  {
     "name": "劍姬神聖譚",
     "type": "奇幻冒險",
     "ep": 12,
@@ -900,6 +889,17 @@
     "view_avg": 187000,
     "year": 2017,
     "month": 6
+  },
+  {
+    "name": "Vivy -Fluorite Eye's Song-",
+    "type": "其他",
+    "ep": 13,
+    "view": 2423000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/69/0000115369.JPG",
+    "sn": "112657",
+    "view_avg": 186384.62,
+    "year": 2021,
+    "month": 4
   },
   {
     "name": "排球少年！！第四季",
@@ -9757,17 +9757,6 @@
     "month": 10
   },
   {
-    "name": "卡片戰鬥!! 先導者 overdress",
-    "type": "運動競技",
-    "ep": 10,
-    "view": 38000,
-    "image": "https://p2.bahamut.com.tw/B/ACG/c/27/0000115927.JPG",
-    "sn": "112650",
-    "view_avg": 3800,
-    "year": 2021,
-    "month": 4
-  },
-  {
     "name": "蘋果核戰 XIII 劇場版～遺言～",
     "type": "科幻未來",
     "ep": 1,
@@ -9920,6 +9909,17 @@
     "view_avg": 3517,
     "year": 1987,
     "month": 9
+  },
+  {
+    "name": "卡片戰鬥!! 先導者 overdress",
+    "type": "運動競技",
+    "ep": 11,
+    "view": 38000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/27/0000115927.JPG",
+    "sn": "112650",
+    "view_avg": 3454.55,
+    "year": 2021,
+    "month": 4
   },
   {
     "name": "Active Raid -機動強襲室第八組- 第二季",

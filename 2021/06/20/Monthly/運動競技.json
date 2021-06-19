@@ -308,17 +308,6 @@
     "month": 10
   },
   {
-    "name": "卡片戰鬥!! 先導者 overdress",
-    "type": "運動競技",
-    "ep": 10,
-    "view": 13000,
-    "image": "https://p2.bahamut.com.tw/B/ACG/c/27/0000115927.JPG",
-    "sn": "112650",
-    "view_avg": 1300,
-    "year": 2021,
-    "month": 4
-  },
-  {
     "name": "飆速宅男 第二季",
     "type": "運動競技",
     "ep": 24,
@@ -339,6 +328,17 @@
     "view_avg": 1250,
     "year": 2019,
     "month": 7
+  },
+  {
+    "name": "卡片戰鬥!! 先導者 overdress",
+    "type": "運動競技",
+    "ep": 11,
+    "view": 13000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/27/0000115927.JPG",
+    "sn": "112650",
+    "view_avg": 1181.82,
+    "year": 2021,
+    "month": 4
   },
   {
     "name": "飆速宅男 SPARE BIKE",
