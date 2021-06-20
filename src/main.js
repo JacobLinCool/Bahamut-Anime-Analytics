@@ -107,7 +107,10 @@ async function full_time_details(list) {
         } else {
             let request = [];
             let next_ep = first_current_ep.nextSibling;
-            while (next_ep) request.push(fetch(`https://ani.gamer.com.tw/animeVideo.php${next_ep.querySelector("a").href}`).then((r) => r.text()));
+            while (next_ep) {
+                request.push(fetch(`https://ani.gamer.com.tw/animeVideo.php${next_ep.querySelector("a").href}`).then((r) => r.text()));
+                next_ep = next_ep.nextSibling;
+            }
             let html = await Promise.all(request);
             html.forEach((raw) => {
                 let dom = new JSDOM(raw);
