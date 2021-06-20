@@ -31,3 +31,4 @@ jobs:
           user_name: "JacobLinCool"
           user_email: "jacoblincool@users.noreply.github.com"
           publish_branch: "data"
+          keep_files: true
