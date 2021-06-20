@@ -31,8 +31,9 @@ async function main() {
         .reduce((a, b) => a.concat(b), [])
         .forEach((anime) => {
             result[anime.name] = Object.assign({}, anime, {
-                details: details[anime.name],
-                view: Object.values(details[anime.name]).reduce((a, b) => a + b, 0),
+                details: details[anime.name].view,
+                vote: details[anime.name].vote,
+                view: Object.values(details[anime.name].view).reduce((a, b) => a + b, 0),
             });
             result[anime.name].view_avg = +(result[anime.name].view / result[anime.name].ep).toFixed(2);
         });
@@ -52,6 +53,17 @@ async function main() {
     Object.entries(full_result).forEach(([type, data]) => {
         fs.writeFileSync(`${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Full/${type}.json`, JSON.stringify(data, null, 2));
     });
+
+    fs.writeFileSync(
+        `${DIR}meta.json`,
+        JSON.stringify(
+            {
+                latest: [DATE[0], DATE[1], DATE[2]],
+            },
+            null,
+            2
+        )
+    );
 }
 
 function check_dir() {
@@ -72,30 +84,41 @@ function check_dir() {
 }
 
 async function full_time_details(list) {
-    let result = {};
+    // 1, Fetch Ref, Get Epsodes
+    // 2. Create Fetch Array
+    // 3. Promise All,
+    let list_result = {};
     for (let i = 0; i < list.length; i++) {
         let name = list[i].name,
-            sn = list[i].sn,
-            episode = {};
-        console.log(`[Full-Time Details] name = ${name}, sn = ${sn}`);
-        let has_next_episode = true;
-        while (has_next_episode) {
-            let raw = await fetch(`https://ani.gamer.com.tw/${sn == list[i].sn ? "animeRef" : "animeVideo"}.php?sn=${sn}`).then((r) => r.text());
-            let dom = new JSDOM(raw);
-            let view = number_normalize(dom.window.document.querySelector(".newanime-count > span").innerHTML);
-            let current_ep = dom.window.document.querySelector("li.playing");
-            if (!current_ep) {
-                has_next_episode = false;
-                episode["電影"] = view;
-            } else {
-                if (!current_ep.nextSibling) has_next_episode = false;
-                else sn = number_normalize(current_ep.nextSibling.querySelector("a").href);
-                episode[current_ep.querySelector("a").innerHTML.trim()] = view;
-            }
+            result = { view: {}, vote: {} };
+        console.log(`[Full-Time Details] name = ${name}, i = ${i}`);
+
+        let first_raw = await fetch(`https://ani.gamer.com.tw/animeRef.php?sn=${list[i].sn}`).then((r) => r.text());
+        let first_dom = new JSDOM(first_raw);
+        let first_view = number_normalize(first_dom.window.document.querySelector(".newanime-count > span").innerHTML);
+        let first_current_ep = first_dom.window.document.querySelector("li.playing");
+
+        result.vote.voter = number_normalize(first_dom.window.document.querySelector(".ACG-score > span").innerHTML);
+        first_dom.window.document.querySelector(".ACG-score").children[0].remove();
+        result.vote.score = number_normalize(first_dom.window.document.querySelector(".ACG-score").innerHTML);
+
+        if (!first_current_ep) {
+            result.view["電影"] = first_view;
+        } else {
+            let request = [];
+            let next_ep = first_current_ep.nextSibling;
+            while (next_ep) request.push(fetch(`https://ani.gamer.com.tw/animeVideo.php${next_ep.querySelector("a").href}`).then((r) => r.text()));
+            let html = await Promise.all(request);
+            html.forEach((raw) => {
+                let dom = new JSDOM(raw);
+                let view = number_normalize(dom.window.document.querySelector(".newanime-count > span").innerHTML);
+                result.view[dom.window.document.querySelector("li.playing > a").innerHTML.trim()] = view;
+            });
         }
-        result[name] = episode;
+
+        list_result[name] = result;
     }
-    return result;
+    return list_result;
 }
 
 async function full_time_analytics() {
