@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>巴哈姆特 動畫瘋 分析圖表</title>
+    </head>
+    <body>
+        <div id="main">
+            <select id="selector" class="m-2"></select>
+            <div id="charts"></div>
+            <div id="tables"></div>
+        </div>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+        <style>
+            * {
+                position: relative;
+                font-family: sans-serif;
+            }
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #main {
+                width: 100%;
+                height: 100%;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .chart {
+                width: 90vw;
+                height: 40vw;
+                display: none;
+            }
+
+            .active {
+                display: block;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+        <script>
+            get_latest_data().then((data) => {
+                console.log(data);
+                create_selector(data);
+            });
+
+            async function get_latest_data() {
+                let meta = await fetch("https://cdn.jsdelivr.net/gh/JacobLinCool/Bahamut-Anime-Analytics@data/meta.json").then((res) => res.json());
+                return await fetch(
+                    `https://cdn.jsdelivr.net/gh/JacobLinCool/Bahamut-Anime-Analytics@data/${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}/Full/all.json`
+                ).then((res) => res.json());
+            }
+
+            function create_selector(data) {
+                let type = [...new Set(data.map((x) => x.type))];
+                let selector = document.querySelector("#selector");
+                let charts = document.querySelector("#charts");
+
+                type.forEach((t) => {
+                    let option = document.createElement("option");
+                    option.innerHTML = option.value = t;
+                    selector.appendChild(option);
+
+                    let chart = document.createElement("div");
+                    chart.id = "chart-" + t;
+                    chart.classList.add("chart");
+                    charts.appendChild(chart);
+                    create_chart({ chart_element: chart, data: data.filter((x) => x.type === t), type: t });
+                });
+
+                selector.addEventListener("change", (e) => {
+                    [...charts.children].forEach((elm) => {
+                        elm.classList.remove("active");
+                    });
+                    document.querySelector("#chart-" + selector.value).classList.add("active");
+                });
+
+                document.querySelector("#chart-" + type[0]).classList.add("active");
+            }
+
+            function create_chart({ chart_element, data, type }) {
+                let chart = echarts.init(chart_element);
+                let option = {
+                    title: {
+                        text: type,
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: [],
+                    },
+                    xAxis: {
+                        data: data.map((x) => x.name),
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name: "集均觀看數",
+                            type: "bar",
+                            data: data.map((x) => x.view_avg.toFixed(0)),
+                        },
+                    ],
+                };
+
+                chart.setOption(option);
+            }
+        </script>
+    </body>
+</html>
