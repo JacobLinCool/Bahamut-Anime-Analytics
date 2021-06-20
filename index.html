@@ -53,7 +53,7 @@
             });
 
             async function get_latest_data() {
-                let meta = await fetch("https://cdn.jsdelivr.net/gh/JacobLinCool/Bahamut-Anime-Analytics@data/meta.json").then((res) => res.json());
+                let meta = await fetch("https://raw.githubusercontent.com/JacobLinCool/Bahamut-Anime-Analytics/data/meta.json").then((res) => res.json());
                 return await fetch(
                     `https://cdn.jsdelivr.net/gh/JacobLinCool/Bahamut-Anime-Analytics@data/${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}/Full/all.json`
                 ).then((res) => res.json());
