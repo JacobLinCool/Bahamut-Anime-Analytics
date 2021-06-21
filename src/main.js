@@ -86,39 +86,46 @@ function check_dir() {
 async function full_time_details(list) {
     let list_result = {};
     for (let i = 0; i < list.length; i++) {
+        let retry = 2;
         let name = list[i].name,
             result = { view: {}, vote: {} };
         console.log(`[Full-Time Details] name = ${name}, i = ${i}`);
+        while (retry-- > 0) {
+            try {
+                let first_raw = await fetch(`https://ani.gamer.com.tw/animeRef.php?sn=${list[i].sn}`).then((r) => r.text());
+                let first_dom = new JSDOM(first_raw);
+                let first_view = number_normalize(first_dom.window.document.querySelector(".newanime-count > span").innerHTML);
+                let first_current_ep = first_dom.window.document.querySelector("li.playing");
 
-        let first_raw = await fetch(`https://ani.gamer.com.tw/animeRef.php?sn=${list[i].sn}`).then((r) => r.text());
-        let first_dom = new JSDOM(first_raw);
-        let first_view = number_normalize(first_dom.window.document.querySelector(".newanime-count > span").innerHTML);
-        let first_current_ep = first_dom.window.document.querySelector("li.playing");
+                result.vote.voter = number_normalize(first_dom.window.document.querySelector(".ACG-score > span").innerHTML);
+                first_dom.window.document.querySelector(".ACG-score").children[0].remove();
+                result.vote.score = number_normalize(first_dom.window.document.querySelector(".ACG-score").innerHTML);
+                result.vote.percentage = ((result.vote.score - 3.9) / (9.9 - 3.9)) * 100;
+                result.vote.reason = [...first_dom.window.document.querySelectorAll(".ACG-data > ul:not(.ACG-persent) > li")].map((x) => x.innerHTML.trim());
 
-        result.vote.voter = number_normalize(first_dom.window.document.querySelector(".ACG-score > span").innerHTML);
-        first_dom.window.document.querySelector(".ACG-score").children[0].remove();
-        result.vote.score = number_normalize(first_dom.window.document.querySelector(".ACG-score").innerHTML);
-        result.vote.percentage = ((result.vote.score - 3.9) / (9.9 - 3.9)) * 100;
-        result.vote.reason = [...first_dom.window.document.querySelectorAll(".ACG-data > ul:not(.ACG-persent) > li")].map((x) => x.innerHTML.trim());
+                if (!first_current_ep) {
+                    result.view["電影"] = first_view;
+                } else {
+                    let request = [];
+                    let next_ep = first_current_ep.nextSibling;
+                    while (next_ep) {
+                        request.push(fetch(`https://ani.gamer.com.tw/animeVideo.php${next_ep.querySelector("a").href}`).then((r) => r.text()));
+                        next_ep = next_ep.nextSibling;
+                    }
+                    let html = await Promise.all(request);
+                    html.forEach((raw) => {
+                        let dom = new JSDOM(raw);
+                        let view = number_normalize(dom.window.document.querySelector(".newanime-count > span").innerHTML);
+                        result.view[dom.window.document.querySelector("li.playing > a").innerHTML.trim()] = view;
+                    });
+                }
 
-        if (!first_current_ep) {
-            result.view["電影"] = first_view;
-        } else {
-            let request = [];
-            let next_ep = first_current_ep.nextSibling;
-            while (next_ep) {
-                request.push(fetch(`https://ani.gamer.com.tw/animeVideo.php${next_ep.querySelector("a").href}`).then((r) => r.text()));
-                next_ep = next_ep.nextSibling;
+                list_result[name] = result;
+                break;
+            } catch (err) {
+                console.log(`[Full-Time Details] Error Happened. \nretry = ${retry} \n`, err);
             }
-            let html = await Promise.all(request);
-            html.forEach((raw) => {
-                let dom = new JSDOM(raw);
-                let view = number_normalize(dom.window.document.querySelector(".newanime-count > span").innerHTML);
-                result.view[dom.window.document.querySelector("li.playing > a").innerHTML.trim()] = view;
-            });
         }
-
-        list_result[name] = result;
     }
     return list_result;
 }
