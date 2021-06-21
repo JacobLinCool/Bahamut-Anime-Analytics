@@ -561,17 +561,6 @@
     "month": 10
   },
   {
-    "name": "七騎士：革命 -英雄的繼承者-",
-    "type": "奇幻冒險",
-    "ep": 11,
-    "view": 55000,
-    "image": "https://p2.bahamut.com.tw/B/ACG/c/59/0000115759.JPG",
-    "sn": "112655",
-    "view_avg": 5000,
-    "year": 2021,
-    "month": 4
-  },
-  {
     "name": "我的英雄學院 OVA：活下來！殊死的生存訓練",
     "type": "奇幻冒險",
     "ep": 2,
@@ -614,6 +603,17 @@
     "view_avg": 4750,
     "year": 2021,
     "month": 1
+  },
+  {
+    "name": "七騎士：革命 -英雄的繼承者-",
+    "type": "奇幻冒險",
+    "ep": 12,
+    "view": 55000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/59/0000115759.JPG",
+    "sn": "112655",
+    "view_avg": 4583.33,
+    "year": 2021,
+    "month": 4
   },
   {
     "name": "為了女兒，我說不定連魔王都能幹掉。",

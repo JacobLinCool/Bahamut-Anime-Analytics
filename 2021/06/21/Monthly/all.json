@@ -319,17 +319,6 @@
     "month": 2
   },
   {
-    "name": "王者天下 第三季",
-    "type": "歷史傳記",
-    "ep": 11,
-    "view": 149000,
-    "image": "https://p2.bahamut.com.tw/B/ACG/c/06/0000108606.JPG",
-    "sn": "108606",
-    "view_avg": 13545.45,
-    "year": 2020,
-    "month": 4
-  },
-  {
     "name": "無職轉生，到了異世界就拿出真本事",
     "type": "奇幻冒險",
     "ep": 11,
@@ -350,6 +339,17 @@
     "view_avg": 12909.09,
     "year": 2021,
     "month": 3
+  },
+  {
+    "name": "王者天下 第三季",
+    "type": "歷史傳記",
+    "ep": 12,
+    "view": 149000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/06/0000108606.JPG",
+    "sn": "108606",
+    "view_avg": 12416.67,
+    "year": 2020,
+    "month": 4
   },
   {
     "name": "約會大作戰 DATE A BULLET 赤黑新章：虛或實",
@@ -1045,17 +1045,6 @@
     "month": 10
   },
   {
-    "name": "七騎士：革命 -英雄的繼承者-",
-    "type": "奇幻冒險",
-    "ep": 11,
-    "view": 55000,
-    "image": "https://p2.bahamut.com.tw/B/ACG/c/59/0000115759.JPG",
-    "sn": "112655",
-    "view_avg": 5000,
-    "year": 2021,
-    "month": 4
-  },
-  {
     "name": "我的英雄學院 OVA：活下來！殊死的生存訓練",
     "type": "奇幻冒險",
     "ep": 2,
@@ -1153,6 +1142,17 @@
     "view_avg": 4615.38,
     "year": 2008,
     "month": 7
+  },
+  {
+    "name": "七騎士：革命 -英雄的繼承者-",
+    "type": "奇幻冒險",
+    "ep": 12,
+    "view": 55000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/59/0000115759.JPG",
+    "sn": "112655",
+    "view_avg": 4583.33,
+    "year": 2021,
+    "month": 4
   },
   {
     "name": "為了女兒，我說不定連魔王都能幹掉。",
