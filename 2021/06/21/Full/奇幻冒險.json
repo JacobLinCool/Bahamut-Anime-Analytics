@@ -2497,17 +2497,6 @@
     "month": 7
   },
   {
-    "name": "七騎士：革命 -英雄的繼承者-",
-    "type": "奇幻冒險",
-    "ep": 11,
-    "view": 166000,
-    "image": "https://p2.bahamut.com.tw/B/ACG/c/59/0000115759.JPG",
-    "sn": "112655",
-    "view_avg": 15090.91,
-    "year": 2021,
-    "month": 4
-  },
-  {
     "name": "動物朋友 2",
     "type": "奇幻冒險",
     "ep": 12,
@@ -2605,6 +2594,17 @@
     "view_avg": 14000,
     "year": 2020,
     "month": 11
+  },
+  {
+    "name": "七騎士：革命 -英雄的繼承者-",
+    "type": "奇幻冒險",
+    "ep": 12,
+    "view": 166000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/59/0000115759.JPG",
+    "sn": "112655",
+    "view_avg": 13833.33,
+    "year": 2021,
+    "month": 4
   },
   {
     "name": "純潔的瑪利亞",

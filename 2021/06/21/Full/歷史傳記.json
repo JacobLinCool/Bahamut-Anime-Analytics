@@ -11,17 +11,6 @@
     "month": 1
   },
   {
-    "name": "王者天下 第三季",
-    "type": "歷史傳記",
-    "ep": 11,
-    "view": 501000,
-    "image": "https://p2.bahamut.com.tw/B/ACG/c/06/0000108606.JPG",
-    "sn": "108606",
-    "view_avg": 45545.45,
-    "year": 2020,
-    "month": 4
-  },
-  {
     "name": "阿爾蒂",
     "type": "歷史傳記",
     "ep": 12,
@@ -29,6 +18,17 @@
     "image": "https://p2.bahamut.com.tw/B/ACG/c/28/0000106728.JPG",
     "sn": "106728",
     "view_avg": 43583.33,
+    "year": 2020,
+    "month": 4
+  },
+  {
+    "name": "王者天下 第三季",
+    "type": "歷史傳記",
+    "ep": 12,
+    "view": 501000,
+    "image": "https://p2.bahamut.com.tw/B/ACG/c/06/0000108606.JPG",
+    "sn": "108606",
+    "view_avg": 41750,
     "year": 2020,
     "month": 4
   },
