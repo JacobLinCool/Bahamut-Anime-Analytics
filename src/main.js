@@ -100,12 +100,14 @@ async function full_time_details(list) {
                 result.vote.voter = number_normalize(first_dom.window.document.querySelector(".ACG-score > span").innerHTML);
                 first_dom.window.document.querySelector(".ACG-score").children[0].remove();
                 result.vote.score = number_normalize(first_dom.window.document.querySelector(".ACG-score").innerHTML);
-                result.vote.percentage = ((result.vote.score - 3.9) / (9.9 - 3.9)) * 100;
+                result.vote.percentage = +(((result.vote.score - 3.9) / (9.9 - 3.9)) * 100).toFixed(1);
                 result.vote.reason = [...first_dom.window.document.querySelectorAll(".ACG-data > ul:not(.ACG-persent) > li")].map((x) => x.innerHTML.trim());
 
                 if (!first_current_ep) {
                     result.view["電影"] = first_view;
                 } else {
+                    result.view[first_dom.window.document.querySelector("li.playing > a").innerHTML.trim()] = first_view;
+
                     let request = [];
                     let next_ep = first_current_ep.nextSibling;
                     while (next_ep) {
