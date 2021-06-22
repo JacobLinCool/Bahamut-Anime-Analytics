@@ -333,10 +333,10 @@
                     views.forEach((view, i) => {
                         if (view > max) {
                             max = view;
-                            max_ep = i + 1;
+                            max_ep = Object.keys(anime.details)[i];
                         } else if (view < min) {
                             min = view;
-                            min_ep = i + 1;
+                            min_ep = Object.keys(anime.details)[i];
                         }
                     });
                     /*
