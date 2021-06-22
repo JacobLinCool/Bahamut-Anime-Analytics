@@ -7,8 +7,17 @@
     </head>
     <body>
         <div id="main">
-            <select id="selector" class="m-2"></select>
-            <div id="charts"></div>
+            <div>
+                <select id="sort-selector" class="m-2">
+                    <option value="view_avg">集均觀看數</option>
+                    <option value="view">總觀看數</option>
+                    <!-- <option value="score">評分</option> -->
+                </select>
+                <select id="selector" class="m-2"></select>
+                <input id="from_number" type="number" value="1" />
+                <input id="to_number" type="number" value="10000" />
+            </div>
+            <div id="chart"></div>
             <div id="tables"></div>
         </div>
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
@@ -35,10 +44,9 @@
                 align-items: center;
             }
 
-            .chart {
-                width: 90vw;
+            #chart {
+                width: 95vw;
                 height: 40vw;
-                display: none;
             }
 
             .active {
@@ -47,69 +55,145 @@
         </style>
         <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
         <script>
-            get_latest_data().then((data) => {
-                console.log(data);
-                create_selector(data);
-            });
+            const color = {
+                奇幻冒險: "#0388ff",
+                戀愛: "#ff3f9a",
+                幽默搞笑: "#639300",
+                青春校園: "#00ab75",
+                科幻未來: "#00a1bb",
+                靈異神怪: "#b77a00",
+                運動競技: "#00ac22",
+                料理美食: "#7a72ff",
+                其他: "#c55aff",
+                溫馨: "#ff46d8",
+                推理懸疑: "#00a400",
+                社會寫實: "#f46000",
+                歷史傳記: "#ff484f",
+            };
+
+            class Show {
+                constructor(data) {
+                    this.data = data;
+                    this.types = [...new Set(data.map((x) => x.type))];
+                    this.types.unshift("All");
+
+                    this.chart = echarts.init(document.querySelector("#chart"));
+                    this.sort_selector = document.querySelector("#sort-selector");
+                    this.selector = document.querySelector("#selector");
+                    this.from = document.querySelector("#from_number");
+                    this.to = document.querySelector("#to_number");
+                    this.create_selector();
+                    this.sort_data("view_avg");
+                    this.update_chart();
+                }
+
+                static async create() {
+                    let data = await get_latest_data();
+                    return new Show(data);
+                }
+
+                sort_data(mode = "view_avg") {
+                    switch (mode) {
+                        case "view_avg":
+                            this.data.sort((a, b) => b.view_avg - a.view_avg);
+                            this.sort_mode = "集均觀看數";
+                            break;
+                        case "view":
+                            this.data.sort((a, b) => b.view - a.view);
+                            this.sort_mode = "總觀看數";
+                            break;
+                        case "score":
+                            this.data.sort((a, b) => b.vote.score - a.vote.score);
+                            this.sort_mode = "評分";
+                            break;
+                        default:
+                            break;
+                    }
+                    if (mode === "view_avg") {
+                        this.sort_mode = "集均觀看數";
+                    } else if (mode === "view") {
+                        this.sort_mode = "總觀看數";
+                    } else if (mode === "score") {
+                        this.sort_mode = "評分";
+                    }
+                    this.sort = mode;
+                }
+
+                set_chart({ type, data }) {
+                    console.log(`類別：${type} - 總共有 ${data.length} 筆資料`);
+                    let option = {
+                        title: {
+                            text: type,
+                        },
+                        tooltip: {},
+                        legend: {
+                            data: [...new Set(data.map((x) => x.type))],
+                        },
+                        xAxis: {
+                            data: data.map((x) => x.name),
+                        },
+                        yAxis: {},
+                        series: [
+                            {
+                                name: this.sort_mode,
+                                type: "bar",
+                                data: data.map((x) => {
+                                    return {
+                                        value: x[this.sort].toFixed(0),
+                                        itemStyle: {
+                                            color: color[x.type],
+                                        },
+                                    };
+                                }),
+                            },
+                        ],
+                    };
+
+                    this.chart.setOption(option);
+                }
+
+                create_selector() {
+                    this.types.forEach((t) => {
+                        let option = document.createElement("option");
+                        option.innerHTML = option.value = t;
+                        this.selector.appendChild(option);
+                    });
+
+                    this.sort_selector.addEventListener("change", (e) => {
+                        this.sort_data(this.sort_selector.value);
+                        this.update_chart();
+                    });
+
+                    this.selector.addEventListener("change", (e) => {
+                        this.update_chart();
+                    });
+
+                    this.from.addEventListener("change", (e) => {
+                        this.update_chart();
+                    });
+
+                    this.to.addEventListener("change", (e) => {
+                        this.update_chart();
+                    });
+                }
+
+                update_chart() {
+                    if (this.selector.value === "All") this.set_chart({ type: "All", data: this.data.slice(this.from.value - 1, this.to.value) });
+                    else
+                        this.set_chart({
+                            type: this.selector.value,
+                            data: this.data.filter((x) => x.type === this.selector.value).slice(this.from.value - 1, this.to.value),
+                        });
+                }
+            }
+
+            let show = Show.create();
 
             async function get_latest_data() {
                 let meta = await fetch("https://raw.githubusercontent.com/JacobLinCool/Bahamut-Anime-Analytics/data/meta.json").then((res) => res.json());
                 return await fetch(
                     `https://cdn.jsdelivr.net/gh/JacobLinCool/Bahamut-Anime-Analytics@data/${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}/Full/all.json`
                 ).then((res) => res.json());
-            }
-
-            function create_selector(data) {
-                let type = [...new Set(data.map((x) => x.type))];
-                let selector = document.querySelector("#selector");
-                let charts = document.querySelector("#charts");
-
-                type.forEach((t) => {
-                    let option = document.createElement("option");
-                    option.innerHTML = option.value = t;
-                    selector.appendChild(option);
-
-                    let chart = document.createElement("div");
-                    chart.id = "chart-" + t;
-                    chart.classList.add("chart");
-                    charts.appendChild(chart);
-                    create_chart({ chart_element: chart, data: data.filter((x) => x.type === t), type: t });
-                });
-
-                selector.addEventListener("change", (e) => {
-                    [...charts.children].forEach((elm) => {
-                        elm.classList.remove("active");
-                    });
-                    document.querySelector("#chart-" + selector.value).classList.add("active");
-                });
-
-                document.querySelector("#chart-" + type[0]).classList.add("active");
-            }
-
-            function create_chart({ chart_element, data, type }) {
-                let chart = echarts.init(chart_element);
-                let option = {
-                    title: {
-                        text: type,
-                    },
-                    tooltip: {},
-                    legend: {
-                        data: [],
-                    },
-                    xAxis: {
-                        data: data.map((x) => x.name),
-                    },
-                    yAxis: {},
-                    series: [
-                        {
-                            name: "集均觀看數",
-                            type: "bar",
-                            data: data.map((x) => x.view_avg.toFixed(0)),
-                        },
-                    ],
-                };
-
-                chart.setOption(option);
             }
         </script>
     </body>
