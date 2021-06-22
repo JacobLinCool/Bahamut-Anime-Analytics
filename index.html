@@ -35,7 +35,8 @@
             </div>
             <div class="bg-indigo-50 rounded-lg w-screen py-2 my-5">
                 <div>
-                    <select id="anime-selector" class="w-96 px-2 m-2 rounded bg-indigo-200 text-right"></select>
+                    <input id="anime-selector" list="anime-list" class="w-96 px-2 m-2 rounded bg-indigo-200 text-right" />
+                    <datalist id="anime-list"></datalist>
                 </div>
                 <div id="details-chart" class="w-11/12 h-96 mx-4"></div>
             </div>
@@ -199,10 +200,13 @@
 
                     this.data
                         .map((x) => x.name)
+                        .sort((a, b) => {
+                            return a > b ? 1 : -1;
+                        })
                         .forEach((n) => {
                             let option = document.createElement("option");
-                            option.innerHTML = option.value = n;
-                            this.anime_selector.appendChild(option);
+                            option.value = n;
+                            document.querySelector("#anime-list").appendChild(option);
                         });
                 }
 
@@ -256,7 +260,7 @@
 
                 set_details_chart() {
                     let name = this.anime_selector.value;
-                    let anime = this.data.filter((x) => x.name.includes(name))[0];
+                    let anime = this.data.filter((x) => x.name === name)[0];
                     if (!anime) return null;
 
                     update_search_param({
