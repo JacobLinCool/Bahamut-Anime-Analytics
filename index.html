@@ -86,7 +86,6 @@
                     this.to = document.querySelector("#to_number");
 
                     this.create_selector();
-                    this.sort_data("view_avg");
                     this.read_search_param();
                     this.update_chart();
 
@@ -172,7 +171,6 @@
                     });
 
                     this.sort_selector.addEventListener("change", (e) => {
-                        this.sort_data(this.sort_selector.value);
                         this.update_chart();
                     });
 
@@ -196,6 +194,7 @@
                         from: this.from.value,
                         to: this.to.value,
                     });
+                    this.sort_data(this.sort_selector.value);
                     if (this.selector.value === "All") this.set_chart({ type: "All", data: this.data.slice(this.from.value - 1, this.to.value) });
                     else
                         this.set_chart({
