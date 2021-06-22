@@ -2,68 +2,83 @@ import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 import fs from "fs";
 import { gen_data, number_normalize } from "./data.js";
+import { CONFIG } from "./config.js";
 
-const DIR = "./dist/";
+const DIR = CONFIG.DIR;
 const DATE = time_info();
 
 async function main() {
     check_dir();
 
-    let { result: monthly_result, list: monthly_list } = await monthly_analytics();
-    fs.writeFileSync(
-        `${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Monthly/all.json`,
-        JSON.stringify(
-            Object.values(monthly_result)
-                .reduce((a, b) => a.concat(b), [])
-                .sort((a, b) => b.view_avg - a.view_avg),
-            null,
-            2
-        )
-    );
-    Object.entries(monthly_result).forEach(([type, data]) => {
-        fs.writeFileSync(`${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Monthly/${type}.json`, JSON.stringify(data, null, 2));
-    });
-
-    let { result: full_result, list: full_list } = await full_time_analytics();
-    let details = await full_time_details(full_list);
-    let result = {};
-    Object.values(full_result)
-        .reduce((a, b) => a.concat(b), [])
-        .forEach((anime) => {
-            result[anime.name] = Object.assign({}, anime, {
-                details: details[anime.name].view,
-                vote: details[anime.name].vote,
-                view: Object.values(details[anime.name].view).reduce((a, b) => a + b, 0),
+    if (CONFIG.MONTHLY) {
+        let { result: monthly_result, list: monthly_list } = await monthly_analytics();
+        fs.writeFileSync(
+            `${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Monthly/all.json`,
+            JSON.stringify(
+                Object.values(monthly_result)
+                    .reduce((a, b) => a.concat(b), [])
+                    .sort((a, b) => b.view_avg - a.view_avg),
+                null,
+                2
+            )
+        );
+        if (CONFIG.MONTHLY_TYPE_SPLIT) {
+            Object.entries(monthly_result).forEach(([type, data]) => {
+                fs.writeFileSync(`${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Monthly/${type}.json`, JSON.stringify(data, null, 2));
             });
-            result[anime.name].view_avg = +(result[anime.name].view / result[anime.name].ep).toFixed(2);
-        });
+        }
+    }
 
-    fs.writeFileSync(`${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Anime/all.json`, JSON.stringify(result, null, 2));
+    if (CONFIG.FULL) {
+        let { result: full_result, list: full_list } = await full_time_analytics();
+        if (CONFIG.FULL_DETAILS) {
+            let details = await full_time_details(full_list);
 
-    fs.writeFileSync(
-        `${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Full/all.json`,
-        JSON.stringify(
+            let result = {};
             Object.values(full_result)
                 .reduce((a, b) => a.concat(b), [])
-                .sort((a, b) => b.view_avg - a.view_avg),
-            null,
-            2
-        )
-    );
-    Object.entries(full_result).forEach(([type, data]) => {
-        fs.writeFileSync(`${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Full/${type}.json`, JSON.stringify(data, null, 2));
-    });
+                .forEach((anime) => {
+                    result[anime.name] = Object.assign({}, anime, {
+                        details: details[anime.name].view,
+                        vote: details[anime.name].vote,
+                        // view: Object.values(details[anime.name].view).reduce((a, b) => a + b, 0),
+                    });
+                    // result[anime.name].view_avg = +(result[anime.name].view / result[anime.name].ep).toFixed(2);
+                });
 
-    fs.writeFileSync(
-        `${DIR}meta.json`,
-        JSON.stringify(
-            {
-                latest: [DATE[0], DATE[1], DATE[2]],
-            },
-            null,
-            2
-        )
-    );
+            full_result = result;
+        }
+
+        fs.writeFileSync(
+            `${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Full/all.json`,
+            JSON.stringify(
+                Object.values(full_result)
+                    .reduce((a, b) => a.concat(b), [])
+                    .sort((a, b) => b.view_avg - a.view_avg),
+                null,
+                2
+            )
+        );
+
+        if (CONFIG.FULL_TYPE_SPLIT) {
+            Object.entries(full_result).forEach(([type, data]) => {
+                fs.writeFileSync(`${DIR}${DATE[0]}/${DATE[1]}/${DATE[2]}/Full/${type}.json`, JSON.stringify(data, null, 2));
+            });
+        }
+    }
+
+    if (CONFIG.META) {
+        fs.writeFileSync(
+            `${DIR}meta.json`,
+            JSON.stringify(
+                {
+                    latest: [DATE[0], DATE[1], DATE[2]],
+                },
+                null,
+                2
+            )
+        );
+    }
 }
 
 function check_dir() {
