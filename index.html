@@ -4,8 +4,20 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>巴哈姆特 動畫瘋 分析圖表</title>
+        <link href="https://unpkg.com/tailwindcss@2.2.2/dist/tailwind.min.css" rel="stylesheet" />
     </head>
     <body>
+        <div id="loading" class="fixed h-full w-full bg-gray-100 flex flex-col justify-center items-center z-50 top-0">
+            <h1 class="text-3xl">巴哈姆特 動畫瘋 分析圖表</h1>
+            <span class="text-2xl">資料載入中...</span>
+            <span>由 <a class="text-purple-600" href="https://github.com/JacobLinCool/" target="_blank">JacobLinCool</a> 整理</span>
+            <span
+                >資料集：<a class="text-purple-600" href="https://github.com/JacobLinCool/Bahamut-Anime-Analytics/tree/data" target="_blank"
+                    >在 GitHub 上查看</a
+                ></span
+            >
+            <span>資料來自 <a class="text-purple-600" href="https://ani.gamer.com.tw/" target="_blank">巴哈姆特動畫瘋</a></span>
+        </div>
         <div id="main">
             <div class="bg-blue-50 rounded-lg w-screen py-2 my-5">
                 <div>
@@ -27,9 +39,14 @@
                 </div>
                 <div id="details-chart" class="w-11/12 h-96 mx-4"></div>
             </div>
-            <div id="extra-info" class="py-5 mx-2"></div>
+            <div id="extra-info" class="py-5 mx-2">
+                最新資料：<span id="update-time" class="text-green-500"></span> <br />
+                由 <a class="text-purple-600" href="https://github.com/JacobLinCool/" target="_blank">JacobLinCool</a> 整理 <br />
+                資料集：<a class="text-purple-600" href="https://github.com/JacobLinCool/Bahamut-Anime-Analytics/tree/data" target="_blank">在 GitHub 上查看</a>
+                <br />
+                資料來自 <a class="text-purple-600" href="https://ani.gamer.com.tw/" target="_blank">巴哈姆特動畫瘋</a> <br />
+            </div>
         </div>
-        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
         <style>
             * {
                 position: relative;
@@ -100,6 +117,8 @@
                         this.anime_selector.value = anime.name;
                         this.set_details_chart();
                     });
+
+                    document.querySelector("#loading").remove();
                 }
 
                 static async create() {
@@ -251,6 +270,7 @@
                     let option = {
                         title: {
                             text: anime.name,
+                            link: `https://ani.gamer.com.tw/animeRef.php?sn=${anime.sn}`,
                         },
                         tooltip: {},
                         legend: {
@@ -282,7 +302,7 @@
             async function get_latest_data() {
                 let meta = await fetch("https://raw.githubusercontent.com/JacobLinCool/Bahamut-Anime-Analytics/data/meta.json").then((res) => res.json());
                 console.log(`最新資料：${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}`);
-                document.querySelector("#extra-info").innerHTML += `最新資料：${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}`;
+                document.querySelector("#extra-info > #update-time").innerHTML += `${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}`;
                 return await fetch(
                     `https://raw.githubusercontent.com/JacobLinCool/Bahamut-Anime-Analytics/data/${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}/Full/all.json`
                 ).then((res) => res.json());
