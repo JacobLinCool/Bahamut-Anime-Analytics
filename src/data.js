@@ -2,7 +2,7 @@ function gen_data(document) {
     let list = [...document.querySelectorAll("a.theme-list-main")];
     let data = list.map((x) => {
         return {
-            name: x.querySelector(".theme-name").innerHTML,
+            name: x.querySelector(".theme-name").innerHTML.replace(/&amp;/g, "&"),
             type: document.querySelector(".theme-title").innerHTML.trim(),
             ep: number_normalize(x.querySelector(".theme-number").innerHTML),
             view: number_normalize(x.querySelector(".show-view-number > p").innerHTML),

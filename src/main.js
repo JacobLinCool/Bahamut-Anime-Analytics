@@ -72,7 +72,7 @@ async function main() {
             `${DIR}meta.json`,
             JSON.stringify(
                 {
-                    latest: [DATE[0], DATE[1], DATE[2]],
+                    latest: DATE,
                 },
                 null,
                 2
