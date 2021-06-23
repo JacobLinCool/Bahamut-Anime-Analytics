@@ -19,7 +19,7 @@
             <span class="m-2">資料來自 <a class="text-purple-600" href="https://ani.gamer.com.tw/" target="_blank">巴哈姆特動畫瘋</a></span>
         </div>
         <div id="main">
-            <div class="bg-blue-50 rounded-lg w-screen py-2 my-5">
+            <div id="overview" class="bg-blue-50 rounded-lg w-screen py-2 my-5">
                 <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))">
                     <div>
                         <label class="ml-2">排序: </label>
@@ -54,7 +54,7 @@
                 </div>
                 <div id="chart" class="w-full h-96"></div>
             </div>
-            <div class="bg-indigo-50 rounded-lg w-screen py-2 my-5">
+            <div id="anime-info" class="bg-indigo-50 rounded-lg w-screen py-2 my-5">
                 <div>
                     <input id="anime-selector" list="anime-list" class="w-96 px-2 m-2 rounded bg-indigo-200 text-right" />
                     <datalist id="anime-list"></datalist>
@@ -172,6 +172,7 @@
                     });
 
                     document.querySelector("#loading").remove();
+                    if (location.hash) document.querySelector(location.hash).scrollIntoView({ behavior: "smooth" });
                 }
 
                 static async create() {
