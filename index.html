@@ -20,16 +20,37 @@
         </div>
         <div id="main">
             <div class="bg-blue-50 rounded-lg w-screen py-2 my-5">
-                <div>
-                    <select id="sort-selector" class="w-30 m-2 rounded bg-blue-200 text-right">
-                        <option value="view_avg">集均觀看數</option>
-                        <option value="view">總觀看數</option>
-                        <option value="score">評分</option>
-                        <option value="year">作品年份</option>
-                    </select>
-                    <select id="selector" class="w-24 m-2 rounded bg-blue-200 text-right"></select>
-                    <input id="from_number" class="w-16 m-2 rounded bg-blue-200 text-right" type="number" value="1" />
-                    <input id="to_number" class="w-16 m-2 rounded bg-blue-200 text-right" type="number" value="10000" />
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))">
+                    <div>
+                        <label class="ml-2">排序: </label>
+                        <select id="sort-selector" class="w-30 m-2 rounded bg-blue-200 text-right">
+                            <option value="view_avg">集均觀看數</option>
+                            <option value="view">總觀看數</option>
+                            <option value="score">評分</option>
+                            <option value="year">作品年份</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="ml-2">項目: </label>
+                        <select id="view-selector" class="w-30 m-2 rounded bg-blue-200 text-right">
+                            <option value="auto">自動</option>
+                            <option value="view_avg">集均觀看數</option>
+                            <option value="view">總觀看數</option>
+                            <option value="vote.score">評分</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="ml-2">類別: </label>
+                        <select id="selector" class="w-22 m-2 rounded bg-blue-200 text-right"></select>
+                    </div>
+                    <div>
+                        <label class="ml-2">起點: </label>
+                        <input id="from_number" class="w-16 m-2 px-1 rounded bg-blue-200 text-right" type="number" placeholder="排名起點" value="1" />
+                    </div>
+                    <div>
+                        <label class="ml-2">終點: </label>
+                        <input id="to_number" class="w-16 m-2 px-1 rounded bg-blue-200 text-right" type="number" placeholder="排名終點" value="30" />
+                    </div>
                 </div>
                 <div id="chart" class="w-full h-96"></div>
             </div>
@@ -112,6 +133,7 @@
                     /* 物件定義 */
                     this.chart = echarts.init(document.querySelector("#chart"));
                     this.sort_selector = document.querySelector("#sort-selector");
+                    this.view_selector = document.querySelector("#view-selector");
                     this.selector = document.querySelector("#selector");
                     this.from = document.querySelector("#from_number");
                     this.to = document.querySelector("#to_number");
@@ -127,7 +149,7 @@
 
                     /* Chart 事件監聽 */
                     this.chart.on("click", "series", (e) => {
-                        let anime = this.data.filter((x) => x.name === e.name)[0];
+                        let anime = this.data[this.from.value - 1 + e.dataIndex];
                         this.anime_selector.value = anime.name;
                         this.set_details_chart();
                     });
@@ -155,6 +177,21 @@
                 static async create() {
                     let data = await get_latest_data();
                     return new Overview(data);
+                }
+
+                view() {
+                    if (this.view_selector.value === "auto") {
+                        switch (this.sort_mode) {
+                            case "集均觀看數":
+                                return "view_avg";
+                            case "總觀看數":
+                                return "view";
+                            case "評分":
+                                return "vote.score";
+                            case "作品年份":
+                                return "year";
+                        }
+                    } else return this.view_selector.value;
                 }
 
                 sort_data(mode = "view_avg") {
@@ -197,12 +234,29 @@
                         grid: {
                             containLabel: true,
                         },
-                        tooltip: {},
+                        tooltip: {
+                            formatter: (params) => {
+                                let idx = params.dataIndex;
+                                let tooltip = `<span class="tnum">`;
+                                tooltip = `<b>${data[idx].name}</b> (<b>${data[idx].year}/${data[idx].month}</b>)<br>`;
+                                tooltip += `<span class="inline-block w-24">集均觀看數：</span><span class="inline-block w-20 text-right"><b>${parseInt(
+                                    data[idx].view_avg.toFixed(0)
+                                ).comma()}</b></span><br>`;
+                                tooltip += `<span class="inline-block w-24">總觀看數：</span><span class="inline-block w-20 text-right"><b>${data[
+                                    idx
+                                ].view.comma()}</b></span><br>`;
+                                tooltip += `<span class="inline-block w-24">評分：</span><span class="inline-block w-20 text-right"><b>${
+                                    data[idx].vote.score
+                                }</b> (<b>${data[idx].vote.voter.comma()}</b>)</span><br>`;
+                                tooltip += `</span>`;
+                                return tooltip;
+                            },
+                        },
                         legend: {
                             data: [...new Set(data.map((x) => x.type))],
                         },
                         xAxis: {
-                            data: data.map((x) => x.name),
+                            data: data.map((x) => +x.find_deep(this.sort).toFixed(1)),
                         },
                         yAxis: {},
                         series: [
@@ -211,7 +265,7 @@
                                 type: "bar",
                                 data: data.map((x) => {
                                     return {
-                                        value: x.find_deep(this.sort).toFixed(1),
+                                        value: x.find_deep(this.view()).toFixed(1),
                                         itemStyle: {
                                             color: color[x.type],
                                         },
@@ -247,6 +301,10 @@
                         this.update_chart();
                     });
 
+                    this.view_selector.addEventListener("change", (e) => {
+                        this.update_chart();
+                    });
+
                     this.selector.addEventListener("change", (e) => {
                         this.update_chart();
                     });
@@ -272,6 +330,7 @@
                 update_chart() {
                     update_search_param({
                         sort: this.sort_selector.value,
+                        view: this.view_selector.value,
                         type: this.selector.value,
                         from: this.from.value,
                         to: this.to.value,
@@ -289,6 +348,7 @@
                 read_search_param() {
                     let sp = new URLSearchParams(location.search);
                     if (sp.get("sort") !== null) this.sort_selector.value = sp.get("sort");
+                    if (sp.get("view") !== null) this.view_selector.value = sp.get("view");
                     if (sp.get("type") !== null) this.selector.value = sp.get("type");
                     if (sp.get("from") !== null) this.from.value = sp.get("from");
                     if (sp.get("to") !== null) this.to.value = sp.get("to");
@@ -302,6 +362,7 @@
                     this.details_selected = null;
                     update_search_param({
                         sort: this.sort_selector.value,
+                        view: this.view_selector.value,
                         type: this.selector.value,
                         from: this.from.value,
                         to: this.to.value,
