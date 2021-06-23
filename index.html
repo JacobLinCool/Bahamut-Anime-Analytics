@@ -375,7 +375,9 @@
                     document.querySelector("#lowest-view").innerHTML = Math.min(...views).comma();
                     document.querySelector("#view-range").innerHTML = (Math.max(...views) - Math.min(...views)).comma();
                     */
-                    let story = `「${anime.name}」這部 ${+anime.year} 年 ${+anime.month} 月推出的作品，在巴哈姆特動畫瘋${
+                    let story = `「<a class="text-purple-600" href="https://acg.gamer.com.tw/acgDetail.php?s=${anime.sn}" target="_blank">${
+                        anime.name
+                    }</a>」這部 ${+anime.year} 年 ${+anime.month} 月推出的作品在巴哈姆特動畫瘋${
                         views.length > 1 ? "第一集" : ""
                     }的觀看數達到 ${views[0].comma()} 人次。`;
                     if (views.length > 1) {
@@ -385,7 +387,7 @@
                         let lower = views[0] > views[views.length - 1];
                         story += `其最後一集較第一集的觀看數${lower ? "減少" : "增加"}了 ${Math.abs(
                             views[0] - views[views.length - 1]
-                        ).comma()} 人次，換句話說，其最後一集的觀看數相較於第一集${lower ? "下降" : "增加"}了 ${(lower
+                        ).comma()} 人次，換句話說，相較於第一集${lower ? "下降" : "增加"}了 ${(lower
                             ? ((views[0] - views[views.length - 1]) * 100) / views[0]
                             : ((views[views.length - 1] - views[0]) * 100) / views[0]
                         ).toFixed(0)}%。`;
@@ -395,6 +397,15 @@
                                 min
                             ).toFixed(0)}% ，或許可以說是救回來了一些。`;
                         }
+                    }
+                    story += `<br><br>`;
+
+                    if (anime.vote.score) {
+                        story += `這部作品在 ${anime.vote.voter.comma()} 個觀眾評價中，獲得${anime.vote.score > 9.6 ? "高達" : ""} ${
+                            anime.vote.score
+                        } 分的評價，以百分制表示則為 ${anime.vote.percentage} 分。投票的觀眾普遍認為${anime.vote.reason
+                            .map((x) => `「${x}」`)
+                            .join("、")}等因素促成他們給予此一${anime.vote.score > 9.6 ? "高" : "評"}分。`;
                     }
 
                     document.querySelector("#more-anime-data").innerHTML = story;
