@@ -107,6 +107,7 @@
                     this.data = data;
                     this.types = [...new Set(data.map((x) => x.type))];
                     this.types.unshift("All");
+                    this.details_selected = null;
 
                     /* 物件定義 */
                     this.chart = echarts.init(document.querySelector("#chart"));
@@ -127,9 +128,25 @@
                     /* Chart 事件監聽 */
                     this.chart.on("click", "series", (e) => {
                         let anime = this.data.filter((x) => x.name === e.name)[0];
-                        console.log(anime);
                         this.anime_selector.value = anime.name;
                         this.set_details_chart();
+                    });
+
+                    this.details_chart.on("click", "series", (e) => {
+                        this.details_selected = e.name;
+                        let option = this.details_chart.getOption();
+                        option.series[0].data = option.series[0].data.map((val, i) => {
+                            if (i === e.dataIndex) {
+                                return {
+                                    value: e.value,
+                                    symbol: "emptyCircle",
+                                    symbolSize: 9,
+                                };
+                            } else {
+                                return typeof val === "number" ? val : val.value;
+                            }
+                        });
+                        this.details_chart.setOption(option);
                     });
 
                     document.querySelector("#loading").remove();
@@ -282,7 +299,7 @@
                     let name = this.anime_selector.value;
                     let anime = this.data.filter((x) => x.name === name)[0];
                     if (!anime) return null;
-
+                    this.details_selected = null;
                     update_search_param({
                         sort: this.sort_selector.value,
                         type: this.selector.value,
@@ -290,6 +307,8 @@
                         to: this.to.value,
                         anime: this.anime_selector.value,
                     });
+
+                    let sorted = Object.entries(anime.details).sort((a, b) => (parseFloat(a[0]) < parseFloat(b[0]) ? -1 : a[0] < b[0] ? 1 : 0));
 
                     let option = {
                         title: {
@@ -301,19 +320,30 @@
                         },
                         tooltip: {
                             trigger: "axis",
+                            formatter: (params) => {
+                                let tooltip = `<b>${params[0].axisValue}</b><br>觀看數： <b>${params[0].value.comma()}</b>`;
+                                if (this.details_selected) {
+                                    let diff = params[0].value - anime.details[this.details_selected];
+                                    let percentage = +((diff * 100) / anime.details[this.details_selected]).toFixed(1);
+                                    tooltip += `<br>與第 ${this.details_selected} 集比較：${diff > 0 ? "+" : ""}${diff.comma()} (${
+                                        percentage > 0 ? "+" : ""
+                                    }${percentage}%)`;
+                                }
+                                return tooltip;
+                            },
                         },
                         legend: {
-                            data: Object.values(anime.details),
+                            data: sorted.map((x) => x[1]),
                         },
                         xAxis: {
-                            data: Object.keys(anime.details),
+                            data: sorted.map((x) => x[0]),
                         },
                         yAxis: {
                             type: "value",
                         },
                         series: [
                             {
-                                data: Object.values(anime.details),
+                                data: sorted.map((x) => x[1]),
                                 type: "line",
                                 symbol: "circle",
                                 symbolSize: 6,
@@ -350,7 +380,7 @@
                     }的觀看數達到 ${views[0].comma()} 人次。`;
                     if (views.length > 1) {
                         story += `該作品擁有最高觀看數的${
-                            max_ep === 1 ? "就" : ""
+                            max_ep === "1" ? "就" : ""
                         }是第 ${max_ep} 集，觀看數為 ${max.comma()} 人次，而其擁有最低觀看數的則是第 ${min_ep} 集，觀看數為 ${min.comma()} 人次。`;
                         let lower = views[0] > views[views.length - 1];
                         story += `其最後一集較第一集的觀看數${lower ? "減少" : "增加"}了 ${Math.abs(
