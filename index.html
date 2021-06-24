@@ -149,7 +149,9 @@
 
                     /* Chart 事件監聽 */
                     this.chart.on("click", "series", (e) => {
-                        let anime = this.data[this.from.value - 1 + e.dataIndex];
+                        let anime = this.data.filter((x) => (this.selector.value === "All" ? true : x.type === this.selector.value))[
+                            this.from.value - 1 + e.dataIndex
+                        ];
                         this.anime_selector.value = anime.name;
                         this.set_details_chart();
                     });
@@ -478,8 +480,10 @@
 
             async function get_latest_data() {
                 let meta = await fetch("https://raw.githubusercontent.com/JacobLinCool/Bahamut-Anime-Analytics/data/meta.json").then((res) => res.json());
-                console.log(`最新資料：${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}`);
-                document.querySelector("#extra-info > #update-time").innerHTML += `${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}`;
+                console.log(`最新資料：${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]} (${meta.latest[3]}:${meta.latest[4]}:${meta.latest[5]})`);
+                document.querySelector(
+                    "#extra-info > #update-time"
+                ).innerHTML += `${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]} (${meta.latest[3]}:${meta.latest[4]}:${meta.latest[5]})`;
                 return await fetch(
                     `https://cdn.jsdelivr.net/gh/JacobLinCool/Bahamut-Anime-Analytics@data/${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}/Full/all.json`
                 ).then((res) => res.json());
