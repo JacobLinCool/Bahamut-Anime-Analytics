@@ -125,8 +125,9 @@
             class Overview {
                 constructor(data) {
                     /* 資料處理 */
-                    this.data = data;
-                    this.types = [...new Set(data.map((x) => x.type))];
+                    this.raw_data = data;
+                    this.data = this.raw_data.full;
+                    this.types = [...new Set(this.data.map((x) => x.type))];
                     this.types.unshift("All");
                     this.details_selected = null;
 
@@ -178,8 +179,15 @@
                 }
 
                 static async create() {
-                    let data = await get_latest_data();
-                    return new Overview(data);
+                    let d = await data();
+
+                    let meta = d.meta;
+                    console.log(`最新資料：${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]} (${meta.latest[3]}:${meta.latest[4]}:${meta.latest[5]})`);
+                    document.querySelector(
+                        "#extra-info > #update-time"
+                    ).innerHTML += `${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]} (${meta.latest[3]}:${meta.latest[4]}:${meta.latest[5]})`;
+
+                    return new Overview(d);
                 }
 
                 view() {
@@ -240,6 +248,8 @@
                         tooltip: {
                             formatter: (params) => {
                                 let idx = params.dataIndex;
+                                let anime = data[idx].name;
+                                let anime_full_info = this.raw_data.full.filter((x) => x.name === anime)[0];
                                 let tooltip = `<span class="tnum">`;
                                 tooltip = `<b>${data[idx].name}</b> (<b>${data[idx].year}/${data[idx].month}</b>)<br>`;
                                 tooltip += `<span class="inline-block w-24">集均觀看數：</span><span class="inline-block w-20 text-right"><b>${parseInt(
@@ -249,8 +259,8 @@
                                     idx
                                 ].view.comma()}</b></span><br>`;
                                 tooltip += `<span class="inline-block w-24">評分：</span><span class="inline-block w-20 text-right"><b>${
-                                    data[idx].vote.score
-                                }</b> (<b>${data[idx].vote.voter.comma()}</b>)</span><br>`;
+                                    anime_full_info.vote.score
+                                }</b> (<b>${anime_full_info.vote.voter.comma()}</b>)</span><br>`;
                                 tooltip += `</span>`;
                                 return tooltip;
                             },
@@ -360,7 +370,7 @@
 
                 set_details_chart() {
                     let name = this.anime_selector.value;
-                    let anime = this.data.filter((x) => x.name === name)[0];
+                    let anime = this.raw_data.full.filter((x) => x.name === name)[0];
                     if (!anime) return null;
                     this.details_selected = null;
                     update_search_param({
@@ -478,15 +488,38 @@
 
             let show = Overview.create();
 
-            async function get_latest_data() {
+            async function data() {
                 let meta = await fetch("https://raw.githubusercontent.com/JacobLinCool/Bahamut-Anime-Analytics/data/meta.json").then((res) => res.json());
-                console.log(`最新資料：${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]} (${meta.latest[3]}:${meta.latest[4]}:${meta.latest[5]})`);
-                document.querySelector(
-                    "#extra-info > #update-time"
-                ).innerHTML += `${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]} (${meta.latest[3]}:${meta.latest[4]}:${meta.latest[5]})`;
-                return await fetch(
+
+                let full = await fetch(
                     `https://cdn.jsdelivr.net/gh/JacobLinCool/Bahamut-Anime-Analytics@data/${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}/Full/all.json`
                 ).then((res) => res.json());
+
+                let monthly = await fetch(
+                    `https://cdn.jsdelivr.net/gh/JacobLinCool/Bahamut-Anime-Analytics@data/${meta.latest[0]}/${meta.latest[1]}/${meta.latest[2]}/Monthly/all.json`
+                ).then((res) => res.json());
+
+                let merged = {};
+                full.forEach((x) => {
+                    merged[x.name] = Object.assign(
+                        merged[x.name] || { name: x.name, ep: x.ep, image: x.image, year: x.year, month: x.month, sn: x.sn, type: x.type, vote: x.vote },
+                        { full: x }
+                    );
+                });
+                monthly.forEach((x) => {
+                    merged[x.name] = Object.assign(
+                        merged[x.name] || { name: x.name, ep: x.ep, image: x.image, year: x.year, month: x.month, sn: x.sn, type: x.type },
+                        { monthly: x }
+                    );
+                });
+
+                return {
+                    meta: meta,
+                    full: full,
+                    monthly: monthly,
+                    merged: Object.values(merged),
+                    anime: merged,
+                };
             }
 
             function update_search_param(pm) {
