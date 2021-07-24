@@ -360,12 +360,13 @@
 
                 read_search_param() {
                     let sp = new URLSearchParams(location.search);
-                    if (sp.get("sort") !== null) this.sort_selector.value = sp.get("sort");
-                    if (sp.get("view") !== null) this.view_selector.value = sp.get("view");
-                    if (sp.get("type") !== null) this.selector.value = sp.get("type");
-                    if (sp.get("from") !== null) this.from.value = sp.get("from");
-                    if (sp.get("to") !== null) this.to.value = sp.get("to");
-                    if (sp.get("anime") !== null) this.anime_selector.value = sp.get("anime");
+                    if (sp.has("sort")) this.sort_selector.value = sp.get("sort");
+                    if (sp.has("view")) this.view_selector.value = sp.get("view");
+                    if (sp.has("type")) this.selector.value = sp.get("type");
+                    if (sp.has("from")) this.from.value = sp.get("from");
+                    if (sp.has("to")) this.to.value = sp.get("to");
+                    if (sp.has("anime")) this.anime_selector.value = sp.get("anime");
+                    if(sp.has("ppc")) PP(sp.get("ppc"));
                 }
 
                 set_details_chart() {
@@ -449,7 +450,7 @@
                     document.querySelector("#lowest-view").innerHTML = Math.min(...views).comma();
                     document.querySelector("#view-range").innerHTML = (Math.max(...views) - Math.min(...views)).comma();
                     */
-                    let story = `「<a class="text-purple-600" href="https://acg.gamer.com.tw/acgDetail.php?s=${anime.sn}" target="_blank">${
+                    let story = `「<a class="text-purple-600" href="https://ani.gamer.com.tw/animeRef.php?sn=${anime.sn}" target="_blank">${
                         anime.name
                     }</a>」這部 ${+anime.year} 年 ${+anime.month} 月推出的作品在巴哈姆特動畫瘋${
                         views.length > 1 ? "第一集" : ""
@@ -528,6 +529,40 @@
                     sp.append(...pair);
                 });
                 history.pushState(pm, "", "?" + sp.toString());
+            }
+
+            async function PP(code) {
+                await new Promise(r => setTimeout(r, 100));
+                // replace new line with ;
+                code = code.replace(/\n/g, ";");
+                // split code by ;
+                code = code.split(";");
+                // trim each line
+                code = code.map((x) => x.trim());
+                // remove empty lines
+                code = code.filter((x) => x !== "");
+                // run code
+                for(let i = 0; i < code.length; i++) {
+                    const x = code[i];
+                    try {
+                        await new Promise(r => setTimeout(r, 20));
+                        const [command, payload] = x.split(" ");
+                        if (command === "sort") {
+                            document.querySelector("#sort-selector").value = payload;
+                        } else if (command === "view") {
+                            document.querySelector("#view-selector").value = payload;
+                        } else if (command === "type") {
+                            document.querySelector("#selector").value = payload;
+                        } else if (command === "from") {
+                            document.querySelector("#from_number").value = payload;
+                        } else if (command === "to") {
+                            document.querySelector("#to_number").value = payload;
+                        }
+                        (await show).update_chart();
+                    } catch (err) {
+                        console.error("無法解析預處理指令", err);
+                    }
+                };
             }
 
             Object.prototype.find_deep = function (path) {
