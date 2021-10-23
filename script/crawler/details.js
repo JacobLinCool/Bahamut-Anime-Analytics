@@ -3,6 +3,7 @@ const { JSDOM } = require("jsdom");
 const { retry, number_normalize } = require("./utils");
 
 async function get_details(list) {
+    const StartTime = Date.now();
     const list_result = {};
 
     for (let i = 0; i < list.length; i++) {
@@ -45,8 +46,9 @@ async function get_details(list) {
                     next_ep = next_ep.nextSibling;
                 }
                 let html = await Promise.all(request);
+                const { document: doc } = new JSDOM().window;
                 html.forEach((raw) => {
-                    let doc = new JSDOM(raw).window.document;
+                    doc.body.innerHTML = raw;
                     let view = number_normalize(doc.querySelector(".newanime-count > span").innerHTML);
                     result.view[doc.querySelector("li.playing > a").innerHTML.trim()] = view;
                 });
@@ -56,7 +58,9 @@ async function get_details(list) {
         }, 2);
     }
 
-    console.log("\033[92m" + `[Details] Completed. Crawled ${Object.keys(list_result).length} Items.` + "\033[0m");
+    console.log(
+        "\033[92m" + `[Details] Completed. Crawled ${Object.keys(list_result).length} Items in ${Math.round((Date.now() - StartTime) / 1000)}s.` + "\033[0m"
+    );
     return list_result;
 }
 

@@ -3,6 +3,7 @@ const { JSDOM } = require("jsdom");
 const extractor = require("./extractor");
 
 async function monthly_analytics() {
+    const StartTime = Date.now();
     let result = {},
         list = [];
 
@@ -29,11 +30,12 @@ async function monthly_analytics() {
         list = list.concat(collection.map((x) => ({ name: x.name, sn: x.sn })));
     }
 
-    console.log("\033[92m" + `[Monthly Analytics] Completed. Listed ${list.length} Items.` + "\033[0m");
+    console.log("\033[92m" + `[Monthly Analytics] Completed. Listed ${list.length} Items in ${Math.round((Date.now() - StartTime) / 1000)}s.` + "\033[0m");
     return { result, list };
 }
 
 async function full_analytics() {
+    const StartTime = Date.now();
     let result = {},
         list = [];
 
@@ -60,7 +62,7 @@ async function full_analytics() {
         list = list.concat(collection.map((x) => ({ name: x.name, sn: x.sn })));
     }
 
-    console.log("\033[92m" + `[Full Analytics] Completed. Listed ${list.length} Items.` + "\033[0m");
+    console.log("\033[92m" + `[Full Analytics] Completed. Listed ${list.length} Items in ${Math.round((Date.now() - StartTime) / 1000)}s.` + "\033[0m");
     return { result, list };
 }
 
