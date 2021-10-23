@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="./assets/favicon.39251390.svg" />
+        <title>巴哈姆特 動畫瘋 分析圖表</title>
+        <title>Vite App</title>
+      <script type="module" crossorigin src="./assets/index.de545e0a.js"></script>
+      <link rel="modulepreload" href="./assets/vendor.d8979a21.js">
+      <link rel="stylesheet" href="./assets/index.42e462e0.css">
+    </head>
+    <body>
+        <div id="loading" class="fixed h-full w-full bg-gray-100 flex flex-col justify-center items-center z-50 top-0">
+            <h1 class="text-3xl m-2">巴哈姆特 動畫瘋 分析圖表</h1>
+            <span class="text-2xl m-2">資料載入中...</span>
+            <span class="m-2">由 <a class="text-purple-600" href="https://github.com/JacobLinCool/" target="_blank">JacobLinCool</a> 整理</span>
+            <span class="m-2"
+                >資料集：<a class="text-purple-600" href="https://github.com/JacobLinCool/Bahamut-Anime-Analytics/tree/data" target="_blank"
+                    >在 GitHub 上查看</a
+                ></span
+            >
+            <span class="m-2">資料來自 <a class="text-purple-600" href="https://ani.gamer.com.tw/" target="_blank">巴哈姆特動畫瘋</a></span>
+        </div>
+        <div id="main">
+            <div id="overview" class="bg-blue-50 rounded-lg w-screen py-2 my-5">
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))">
+                    <div>
+                        <label class="ml-2">排序: </label>
+                        <select id="sort-selector" class="w-30 m-2 rounded bg-blue-200 text-right">
+                            <option value="view_avg">集均觀看數</option>
+                            <option value="view">總觀看數</option>
+                            <option value="score">評分</option>
+                            <option value="year">作品年份</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="ml-2">項目: </label>
+                        <select id="view-selector" class="w-30 m-2 rounded bg-blue-200 text-right">
+                            <option value="auto">自動</option>
+                            <option value="view_avg">集均觀看數</option>
+                            <option value="view">總觀看數</option>
+                            <option value="vote.score">評分</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="ml-2">類別: </label>
+                        <select id="selector" class="w-22 m-2 rounded bg-blue-200 text-right"></select>
+                    </div>
+                    <div>
+                        <label class="ml-2">起點: </label>
+                        <input id="from_number" class="w-16 m-2 px-1 rounded bg-blue-200 text-right" type="number" placeholder="排名起點" value="1" />
+                    </div>
+                    <div>
+                        <label class="ml-2">終點: </label>
+                        <input id="to_number" class="w-16 m-2 px-1 rounded bg-blue-200 text-right" type="number" placeholder="排名終點" value="30" />
+                    </div>
+                </div>
+                <div id="chart" class="w-full h-96"></div>
+            </div>
+            <div id="anime-info" class="bg-indigo-50 rounded-lg w-screen py-2 my-5">
+                <div>
+                    <input id="anime-selector" list="anime-list" class="w-96 px-2 m-2 rounded bg-indigo-200 text-right" />
+                    <datalist id="anime-list"></datalist>
+                </div>
+                <div id="details-chart" class="w-full h-96"></div>
+                <div id="more-anime-data" class="mx-4">
+                    <!--
+                <span>首播觀看數：<span id="ep1-view" class="inline-block w-20 text-right tnum"></span></span> <br />
+                <span>最高觀看數：<span id="highest-view" class="inline-block w-20 text-right tnum"></span></span> <br />
+                <span>最低觀看數：<span id="lowest-view" class="inline-block w-20 text-right tnum"></span></span> <br />
+                <span>觀看數全距：<span id="view-range" class="inline-block w-20 text-right tnum"></span></span> <br />
+                --></div>
+            </div>
+            <div id="extra-info" class="py-5 mx-2">
+                最新資料：<span id="update-time" class="text-green-500"></span> <br />
+                由 <a class="text-purple-600" href="https://github.com/JacobLinCool/" target="_blank">JacobLinCool</a> 整理 <br />
+                資料集：<a class="text-purple-600" href="https://github.com/JacobLinCool/Bahamut-Anime-Analytics/tree/data" target="_blank">在 GitHub 上查看</a>
+                <br />
+                資料來自 <a class="text-purple-600" href="https://ani.gamer.com.tw/" target="_blank">巴哈姆特動畫瘋</a> <br />
+            </div>
+        </div>
+        
+    </body>
+</html>
