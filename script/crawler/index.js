@@ -23,7 +23,9 @@ function saveMonthly(result) {
     if (!fs.existsSync(path.dirname(pos))) fs.mkdirSync(path.dirname(pos), { recursive: true });
 
     data = JSON.stringify(
-        result.sort((a, b) => b.view_avg - a.view_avg),
+        Object.values(result)
+            .reduce((a, b) => a.concat(b), [])
+            .sort((a, b) => b.view_avg - a.view_avg),
         null,
         2
     );
@@ -37,7 +39,9 @@ function saveFull(result, details) {
 
     const data = JSON.stringify(
         Object.values(result)
+            .reduce((a, b) => a.concat(b), [])
             .map((anime) => Object.assign(anime, details[anime.name]))
+            .reduce((a, b) => a.concat(b), [])
             .sort((a, b) => b.view_avg - a.view_avg),
         null,
         2
