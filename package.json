@@ -1,18 +1,24 @@
 {
     "name": "bahamut-anime-analytics",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "description": "",
-    "main": "index.js",
-    "type": "module",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "node index.js"
+    "author": {
+        "name": "JacobLinCool",
+        "email": "jacoblincool@gmail.com"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "crawler": "node ./script/crawler"
+    },
+    "devDependencies": {
+        "jsdom": "^18.0.0",
+        "node-fetch": "^2.6.5",
+        "vite": "^2.6.10"
+    },
     "dependencies": {
-        "jsdom": "^16.6.0",
-        "node-fetch": "^2.6.1"
+        "echarts": "^5.2.1",
+        "tailwindcss": "^2.2.17"
     }
 }
