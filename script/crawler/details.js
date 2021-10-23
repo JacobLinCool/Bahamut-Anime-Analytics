@@ -4,6 +4,7 @@ const { retry, number_normalize } = require("./utils");
 
 async function get_details(list) {
     const StartTime = Date.now();
+    let pageCount = 0;
     const list_result = {};
 
     for (let i = 0; i < list.length; i++) {
@@ -12,6 +13,7 @@ async function get_details(list) {
 
         console.log(`[Details] name = ${name}, i = ${i}`);
         await retry(async () => {
+            pageCount++;
             const first_raw = await fetch(`https://ani.gamer.com.tw/animeRef.php?sn=${list[i].sn}`).then((r) => r.text());
             const first_doc = new JSDOM(first_raw).window.document;
             const first_view = number_normalize(first_doc.querySelector(".newanime-count > span").innerHTML);
@@ -42,6 +44,7 @@ async function get_details(list) {
                 let request = [];
                 let next_ep = first_current_ep.nextSibling;
                 while (next_ep) {
+                    pageCount++;
                     request.push(fetch(`https://ani.gamer.com.tw/animeVideo.php${next_ep.querySelector("a").href}`).then((r) => r.text()));
                     next_ep = next_ep.nextSibling;
                 }
@@ -58,9 +61,7 @@ async function get_details(list) {
         }, 2);
     }
 
-    console.log(
-        "\033[92m" + `[Details] Completed. Crawled ${Object.keys(list_result).length} Items in ${Math.round((Date.now() - StartTime) / 1000)}s.` + "\033[0m"
-    );
+    console.log("\033[92m" + `[Details] Completed. Crawled ${pageCount} Pages in ${Math.round((Date.now() - StartTime) / 1000)}s.` + "\033[0m");
     return list_result;
 }
 
