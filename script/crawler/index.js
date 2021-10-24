@@ -40,7 +40,7 @@ function saveFull(result, details) {
     const data = JSON.stringify(
         Object.values(result)
             .reduce((a, b) => a.concat(b), [])
-            .map((anime) => Object.assign(anime, details[anime.name]))
+            .map((anime) => Object.assign(anime, changeName(details[anime.name])))
             .reduce((a, b) => a.concat(b), [])
             .sort((a, b) => b.view_avg - a.view_avg),
         null,
@@ -48,4 +48,10 @@ function saveFull(result, details) {
     );
 
     fs.writeFileSync(pos, data);
+}
+
+function changeName(target) {
+    target.details = target.view;
+    delete target.view;
+    return target;
 }

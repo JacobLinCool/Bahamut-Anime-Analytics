@@ -23,7 +23,7 @@ function time_info() {
 
 function number_normalize(n) {
     try {
-        const number = parseFloat([...n.matchAll(/[+-]?([0-9]*[.])?[0-9]+/g)][0][0]);
+        const number = parseFloat([...n.replace(/[^+-0-9\.萬]/g, "").matchAll(/[+-]?([0-9]*[.])?[0-9]+/g)][0][0]);
         if (n.includes("萬")) return number * 10000;
         else return number;
     } catch (err) {
